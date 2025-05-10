@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BB Community</title>
+  <style>
+    :root {
+      --discord-blurple: #5865F2;
+      --btn-hover: #4551c4;
+      --gray-btn: #6c757d;
+      --gray-btn-hover: #5a6268;
+      --bg-gradient: linear-gradient(135deg, #1e1e2f, #121212);
+      --text-gray: #ccc;
+      --white: #fff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: bgAnim 15s ease infinite;
+    }
+
+    @keyframes bgAnim {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 15px 30px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
+
+    .logo {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--discord-blurple);
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      z-index: 2;
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button, a.btn {
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-add {
+      background-color: var(--discord-blurple);
+    }
+
+    .btn-add:hover {
+      background-color: var(--btn-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .btn-copy {
+      background-color: var(--gray-btn);
+    }
+
+    .btn-copy:hover {
+      background-color: var(--gray-btn-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .link-preview {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      max-width: 90%;
+      word-break: break-all;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .message {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--white);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translateY(-8px);
+    }
+
+    footer {
+      width: 100%;
+      padding: 15px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #666;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 15px;
+      }
+
+      .btn-container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .link-preview {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Discord Nuke Bot</div>
+  </header>
+
+  <main>
+    <div class="btn-container">
+      <a href="https://discord.com/oauth2/authorize?client_id=1297558702844411924&permissions=8&scope=bot " target="_blank" class="btn btn-add">Add Bot</a>
+      <button class="btn btn-copy" onclick="copyLink()">Copy Link</button>
+    </div>
+
+    <div class="link-preview">https://discord.com/... </div>
+    <div class="message" id="message">Скопировано!</div>
+  </main>
+
+  <footer>
+    © 2025 BB Bot
+  </footer>
+
+  <script>
+    function copyLink() {
+      const link = "https://discord.com/oauth2/authorize?client_id=1297558702844411924&permissions=8&scope=bot ";
+      navigator.clipboard.writeText(link).then(() => {
+        const msg = document.getElementById("message");
+        msg.classList.add("show");
+        setTimeout(() => msg.classList.remove("show"), 2000);
+      }).catch(() => alert("Ошибка копирования"));
+    }
+  </script>
+
+</body>
+</html>
